@@ -8,4 +8,3 @@ from users.serializers import UserListSerializer, UserSerializer
 class UserListView(ListAPIView):
     serializer_class = UserListSerializer
     queryset = User.objects.all()
-
