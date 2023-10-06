@@ -1,8 +1,8 @@
 FROM python:3
 
-WORKDIR /app
+WORKDIR /app/edu
 
-COPY req_test.txt.txt .
+COPY ./req_test.txt .
 
 RUN pip install --no-cache-dir -r req_test.txt
 
