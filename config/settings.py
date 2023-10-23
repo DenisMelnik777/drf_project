@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-n^i#)(-dxd_-$vt1l3o=(xi5b&+9-$wsrzd41*74ars)blraz(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework_simplejwt',
     'django_filters',
     'drf_yasg',
     'corsheaders',
@@ -144,6 +145,7 @@ REST_FRAMEWORK = {
     )
 }
 
+
 CORS_ALLOWED_ORIGINS = [
     "https://read-only.example.com",
     "https://read-and-write.example.com",
@@ -157,16 +159,22 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 CELERY_TIMEZONE = 'Europe/Moscow'
 
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
-        'task': 'course.tasks.check_user',
+        'task': 'education.tasks.check_user',
         'schedule': timedelta(minutes=1),
     },
 }
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
